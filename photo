@@ -1,0 +1,31 @@
+import cv2
+import numpy as np
+
+#Начало
+img = cv2.imread('images/photo.png')
+print(img.shape)
+new_img = cv2.resize(img,(img.shape[1]//2,300))
+#cv2.imshow('Photo',img)
+#cv2.imshow('Test',img[0::100,0:50])
+#размытие
+img = cv2.GaussianBlur(img,(13,13),3)
+#изменение цвета
+img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+#бинарная система
+img = cv2.Canny(img, 0, 0)
+cv2.imshow('Test',img)
+#cv2.imshow('Photo',img)
+cv2.waitKey(1000)
+#video
+cap = cv2.VideoCapture('video/desk.mov')
+#камера
+web_cam=cv2.VideoCapture(0)
+# параметры видео
+web_cam.set(3,500)
+web_cam.set(4,400)
+while True:
+    id, image = cap.read()
+    cv2.imshow('Video',image)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
